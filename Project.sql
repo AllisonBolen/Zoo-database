@@ -30,14 +30,19 @@ ebdate		DATE			NOT NULL,
 egender		CHAR			NOT NULL,
 superssn	CHAR(9),
 exhibitname	VARCHAR2(20)	NOT NULL
+/*
+ZIC1: foreign key
+*/
+--CONSTRAINT ZIC1 FOREIGN KEY
 );
 --
 CREATE TABLE exhibit
 (
 exhibitname	VARCHAR2(20)	PRIMARY KEY,		
 climate		VARCHAR2(20)	NOT NULL,
-superssn	CHAR(9)			NOT NULL	
+managerssn	CHAR(9)			NOT NULL	
 );
+--
 --
 CREATE TABLE shop
 (
@@ -45,6 +50,7 @@ shopid		INTEGER			PRIMARY KEY,
 sname		VARCHAR2(15)	NOT NULL,
 exhibitname	VARCHAR2(20)	NOT NULL
 );
+--
 --
 CREATE TABLE animal
 (
@@ -79,5 +85,49 @@ shopid		INTEGER,
 PRIMARY KEY(empssn, shopid)
 );
 --
-SET ECHO OFF
+--zooemployee foreign keys
+ALTER TABLE zooemployees
+ADD FOREIGN KEY (superssn) references zooemployees(empssn)
+Deferrable initially deferred;
+ALTER TABLE zooemployees
+ADD FOREIGN KEY (exhibitname) references exhibit(exhibitname)
+Deferrable initially deferred;
+--
+--exhibit foreign key
+ALTER TABLE exhibit
+ADD FOREIGN KEY (managerssn) references zooemployees(empssn)
+Deferrable initially deferred;
+--
+--shop foreign key
+ALTER TABLE shop
+ADD FOREIGN KEY (exhibitname) references exhibit(exhibitname)
+Deferrable initially deferred;
+--
+--animal foreign keys
+ALTER TABLE animal
+ADD FOREIGN KEY (empssn) references zooemployees(empssn)
+Deferrable initially deferred;
+ALTER TABLE animal
+ADD FOREIGN KEY (exhibitname) references exhibit(exhibitname)
+Deferrable initially deferred;
+--
+--event foreign key
+ALTER TABLE event
+ADD FOREIGN KEY (exhibitname) references exhibit(exhibitname)
+Deferrable initially deferred;
+--
+--shopproducts foreign key
+ALTER TABLE shopproducts
+ADD FOREIGN KEY (shopid) references shop(shopid)
+Deferrable initially deferred;
+--
+--worksat foreign key
+ALTER TABLE worksat
+ADD FOREIGN KEY (empssn) references zooemployees(empssn)
+Deferrable initially deferred;
+ALTER TABLE worksat
+ADD FOREIGN KEY (shopid) references shop(shopid)
+Deferrable initially deferred;
+--
+SET ECHO 
 SPOOL OFF
