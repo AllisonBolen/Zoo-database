@@ -129,5 +129,22 @@ ALTER TABLE worksat
 ADD FOREIGN KEY (shopid) references shop(shopid)
 Deferrable initially deferred;
 --
+--
+--Insert values into the zooemployees table
+INSERT INTO zooemployees VALUES (878792856, 'Jim', 'Smith', 'manager', '55 Redbarrow Rd.', 54000, '12-JUN-89', 'M', NULL, 'Penguin Park');
+INSERT INTO zooemployees VALUES (135675234, 'Frank', 'Reynolds', 'shop manager', '124 Stage Rd.', 32000, '7-AUG-82', 'M', 878792856, 'Penguin Park');
+INSERT INTO zooemployees VALUES (544667755, 'Tyler', 'Johnson', 'Tender', '9090 Left St.', 27000, '12-JUL-89', 'F', 878792856, 'Penguin Park');
+
+INSERT INTO zooemployees VALUES (123456789, 'Salley', 'Jacobson', 'manager', '546 One Way', 57000, '11-JUN-95', 'F', NULL, 'Reptile Mania');
+INSERT INTO zooemployees VALUES (456123789, 'Rebecca', 'Bing', 'Tender', '55 Yemen Rd.', 42000, '4-SEP-93', 'F', 123456789, 'Reptile Mania');
+INSERT INTO zooemployees VALUES (987654321, 'Spencer', 'Matthews', 'Tender', '102 Stopper St.', 36000, '6-MAY-76', 'M', 123456789, 'Reptile Mania');
+
+INSERT INTO zooemployees VALUES (771188229, 'Todd', 'Geller', 'manager', '443 Oak St.', 48000, '1-JAN-75', 'M', NULL, 'African Wild');
+INSERT INTO zooemployees VALUES (993388227, 'Dave', 'Pollet', 'shop manager', '321 Odd Rd.', 37000, '1-MAY-84', 'M', 771188229, 'African Wild');
+INSERT INTO zooemployees VALUES (971397139, 'Cassey', 'Mosbey', 'Tender', '6587 Even St.', 37000, '12-SEP-86', 'F', 771188229, 'African Wild');
+
+INSERT INTO zooemployees VALUES (558822446, 'Bob', 'Topper', 'manager', '892 Simple Way', 65000, '9-OCT-91', 'M', NULL, 'Acquidic Adventure');
+--
+--
 SET ECHO 
 SPOOL OFF
