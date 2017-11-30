@@ -435,5 +435,9 @@ insert into worksat values (416860165, 16);
 insert into worksat values (378213720, 21);
 insert into worksat values (256728014, 21);
 
+--
+COMMIT;
+--
+
 SET ECHO 
 SPOOL OFF
