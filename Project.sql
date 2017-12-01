@@ -20,7 +20,7 @@ DROP TABLE worksat CASCADE CONSTRAINTS;
 --
 CREATE TABLE zooemployees
 (
-empssn		CHAR(9)			PRIMARY KEY,
+empssn		INTEGER			PRIMARY KEY,
 firstname	VARCHAR2(15)	NOT NULL,
 lastname	VARCHAR2(15)	NOT NULL,
 position	VARCHAR2(15)	NOT NULL,
@@ -28,17 +28,17 @@ eaddress	VARCHAR2(60)	NOT NULL,
 esalary		INTEGER			NOT NULL,
 ebdate		DATE			NOT NULL,
 egender		CHAR			NOT NULL,
-superssn	CHAR(9),
-exhibitname	VARCHAR2(20)	NOT NULL,
+superssn	INTEGER,
+exhibitname	VARCHAR2(20)	NOT NULL
 --
-CONSTRAINT ZC1 CHECK ( NOT (position = 'Supervisor' AND esalary < 40000))
+--CONSTRAINT ZC1 CHECK ( NOT (position = 'Supervisor' AND esalary < 40000))
 );
 --
 CREATE TABLE exhibit
 (
-exhibitname	VARCHAR2(20)	PRIMARY KEY,	-- this is an implicit constraint	
+exhibitname	VARCHAR2(20)	PRIMARY KEY,	
 climate		VARCHAR2(20)	NOT NULL,
-managerssn	CHAR(9)			NOT NULL	
+managerssn	INTEGER			NOT NULL	
 );
 --
 --
@@ -56,11 +56,11 @@ aid			INTEGER			PRIMARY KEY,
 species		VARCHAR2(30)	NOT NULL,
 age			INTEGER			NOT NULL,
 agender		CHAR			NOT NULL,
-empssn		CHAR(9)			NOT	NULL,
+empssn		INTEGER			NOT	NULL,
 tendtime	INTEGER			NOT NULL,
-exhibitname	VARCHAR2(20)	NOT NULL,
+exhibitname	VARCHAR2(20)	NOT NULL
 --
-CONSTRAINT ZC2 CHECK ( tendtime > 559 AND tendtime < 1900 )
+--CONSTRAINT ZC2 CHECK ( tendtime > 559 AND tendtime < 1900 )
 );
 --
 CREATE TABLE event
@@ -80,53 +80,53 @@ PRIMARY KEY(shopid, productname)
 --
 CREATE TABLE worksat
 (
-empssn		CHAR(9),
+empssn		INTEGER,
 shopid		INTEGER,
 PRIMARY KEY(empssn, shopid)
 );
 --
 --zooemployee foreign keys
 ALTER TABLE zooemployees
-ADD FOREIGN KEY (superssn) references zooemployees(empssn)
+ADD CONSTRAINT FK1 FOREIGN KEY (superssn) references zooemployees(empssn)
 Deferrable initially deferred;
 ALTER TABLE zooemployees
-ADD FOREIGN KEY (exhibitname) references exhibit(exhibitname)
+ADD CONSTRAINT FK2 FOREIGN KEY (exhibitname) references exhibit(exhibitname)
 Deferrable initially deferred;
 --
 --exhibit foreign key
 ALTER TABLE exhibit
-ADD FOREIGN KEY (managerssn) references zooemployees(empssn)
+ADD CONSTRAINT FK3 FOREIGN KEY (managerssn) references zooemployees(empssn)
 Deferrable initially deferred;
 --
 --shop foreign key
 ALTER TABLE shop
-ADD FOREIGN KEY (exhibitname) references exhibit(exhibitname)
+ADD CONSTRAINT FK4 FOREIGN KEY (exhibitname) references exhibit(exhibitname)
 Deferrable initially deferred;
 --
 --animal foreign keys
 ALTER TABLE animal
-ADD FOREIGN KEY (empssn) references zooemployees(empssn)
+ADD CONSTRAINT FK5 FOREIGN KEY (empssn) references zooemployees(empssn)
 Deferrable initially deferred;
 ALTER TABLE animal
-ADD FOREIGN KEY (exhibitname) references exhibit(exhibitname)
+ADD CONSTRAINT FK6 FOREIGN KEY (exhibitname) references exhibit(exhibitname)
 Deferrable initially deferred;
 --
 --event foreign key
 ALTER TABLE event
-ADD FOREIGN KEY (exhibitname) references exhibit(exhibitname)
+ADD CONSTRAINT FK7 FOREIGN KEY (exhibitname) references exhibit(exhibitname)
 Deferrable initially deferred;
 --
 --shopproducts foreign key
 ALTER TABLE shopproducts
-ADD FOREIGN KEY (shopid) references shop(shopid)
+ADD CONSTRAINT FK8 FOREIGN KEY (shopid) references shop(shopid)
 Deferrable initially deferred;
 --
 --worksat foreign key
 ALTER TABLE worksat
-ADD FOREIGN KEY (empssn) references zooemployees(empssn)
+ADD CONSTRAINT FK9 FOREIGN KEY (empssn) references zooemployees(empssn) 
 Deferrable initially deferred;
 ALTER TABLE worksat
-ADD FOREIGN KEY (shopid) references shop(shopid)
+ADD CONSTRAINT FK10 FOREIGN KEY (shopid) references shop(shopid)
 Deferrable initially deferred;
 --
 -- -----------------------------------------------------
@@ -134,6 +134,21 @@ Deferrable initially deferred;
 -- -----------------------------------------------------
 --
 alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD';
+--
+-- supervisors
+insert into zooemployees values (130423454, 'Ronnie', 'Alvarado', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 72000, '1970-04-15', 'M', NULL, 'Bugs');
+insert into zooemployees values (635052791, 'Patricia', 'Scott', 'Supervisor', '1743 Cinnamon Lane, Grand Rapids, MI', 60000, '1971-09-27', 'F', 130423454, 'Tiger Realm');
+insert into zooemployees values (543145276, 'Brenda', 'Myers', 'Supervisor', '2338 Skinner Hollow Road, Grand Rapids, MI', 61000, '1962-05-31', 'F', 130423454, 'Shores Aquarium');
+insert into zooemployees values (187225055, 'Michael', 'Tejada', 'Supervisor', '531 Stoney Lonesome Road, Grand Rapids, MI', 62000, '1975-09-01', 'M', 130423454, 'Pelican Pier');
+insert into zooemployees values (397981967, 'David', 'Gullett', 'Supervisor', '4796 Trouser Leg Road, Grand Rapids, MI', 63000, '1979-01-29', 'M', 130423454, 'Tropic Treasures');
+insert into zooemployees values (405249752, 'Reginald', 'Phillips', 'Supervisor', '1984 Straford Park, Grand Rapids, MI', 64000, '1985-08-22', 'M', 130423454, 'Wild Way Trail');
+insert into zooemployees values (198204924, 'Jack', 'Arnold', 'Supervisor', '2385 Pride Avenue, Grand Rapids, MI', 65000, '1983-05-10', 'M', 130423454, 'Petting Zoo');
+insert into zooemployees values (306369902, 'Robert', 'Bradley', 'Supervisor', '1524 Neville Street, Grand Rapids, MI', 66000, '1974-01-24', 'M', 130423454, 'Africa');
+insert into zooemployees values (594494079, 'Sheila', 'Lane', 'Supervisor', '4387 Badger Pond Lane, Grand Rapids, MI', 10, '1975-11-13', 'F', 130423454, 'North America');
+insert into zooemployees values (660054663, 'Jennifer', 'Atencio', 'Supervisor', '4035 Wood Street, Grand Rapids, MI', 68000, '1989-12-05', 'F', 130423454, 'South America');
+insert into zooemployees values (170725571, 'Allie', 'Owens', 'Supervisor', '3475 Lost Creek Road, Grand Rapids, MI', 69000, '1985-12-14', 'F', 130423454, 'Frogs');
+insert into zooemployees values (114327791, 'Jennifer', 'Doe', 'Supervisor', '710 Huntz Lane, Grand Rapids, MI', 70000, '1970-12-22', 'F', 130423454, 'Forest Realm');
+insert into zooemployees values (216407536, 'Georgia', 'Murray', 'Supervisor', '2236 Blue Spruce Lane, Grand Rapids, MI', 71000, '1976-05-19', 'F', 130423454, 'Monkeys');
 --
 -- Exhibits
 insert into exhibit values ('Tiger Realm', 'Temperate', 635052791);
@@ -148,21 +163,7 @@ insert into exhibit values ('South America', 'Mediterranean', 660054663);
 insert into exhibit values ('Frogs', 'Tropical', 170725571);
 insert into exhibit values ('Forest Realm', 'Temperate', 114327791);
 insert into exhibit values ('Monkeys', 'Tropical', 216407536);
---
--- supervisors
-insert into zooemployees values (130423454, 'Ronnie', 'Alvarado', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 72000, '1970-04-15', 'M', NULL, 'Pelican Pier');
-insert into zooemployees values (635052791, 'Patricia', 'Scott', 'Supervisor', '1743 Cinnamon Lane, Grand Rapids, MI', 60000, '1971-09-27', 'F', 130423454, 'Tiger Realm');
-insert into zooemployees values (543145276, 'Brenda', 'Myers', 'Supervisor', '2338 Skinner Hollow Road, Grand Rapids, MI', 61000, '1962-05-31', 'F', 130423454, 'Shores Aquarium');
-insert into zooemployees values (187225055, 'Michael', 'Tejada', 'Supervisor', '531 Stoney Lonesome Road, Grand Rapids, MI', 62000, '1975-09-01', 'M', 130423454, 'Pelican Pier');
-insert into zooemployees values (397981967, 'David', 'Gullett', 'Supervisor', '4796 Trouser Leg Road, Grand Rapids, MI', 63000, '1979-01-29', 'M', 130423454, 'Tropic Treasures');
-insert into zooemployees values (405249752, 'Reginald', 'Phillips', 'Supervisor', '1984 Straford Park, Grand Rapids, MI', 64000, '1985-08-22', 'M', 130423454, 'Wild Way Trail');
-insert into zooemployees values (198204924, 'Jack', 'Arnold', 'Supervisor', '2385 Pride Avenue, Grand Rapids, MI', 65000, '1983-05-10', 'M', 130423454, 'Petting Zoo');
-insert into zooemployees values (306369902, 'Robert', 'Bradley', 'Supervisor', '1524 Neville Street, Grand Rapids, MI', 66000, '1974-01-24', 'M', 130423454, 'Africa');
-insert into zooemployees values (594494079, 'Sheila', 'Lane', 'Supervisor', '4387 Badger Pond Lane, Grand Rapids, MI', 10, '1975-11-13', 'F', 130423454, 'North America');
-insert into zooemployees values (660054663, 'Jennifer', 'Atencio', 'Supervisor', '4035 Wood Street, Grand Rapids, MI', 68000, '1989-12-05', 'F', 130423454, 'South America');
-insert into zooemployees values (170725571, 'Allie', 'Owens', 'Supervisor', '3475 Lost Creek Road, Grand Rapids, MI', 69000, '1985-12-14', 'F', 130423454, 'Frogs');
-insert into zooemployees values (114327791, 'Jennifer', 'Doe', 'Supervisor', '710 Huntz Lane, Grand Rapids, MI', 70000, '1970-12-22', 'F', 130423454, 'Forest Realm');
-insert into zooemployees values (216407536, 'Georgia', 'Murray', 'Supervisor', '2236 Blue Spruce Lane, Grand Rapids, MI', 71000, '1976-05-19', 'F', 130423454, 'Monkeys');
+insert into exhibit values ('Bugs', 'Tropical', 130423454);
 --
 -- Zoo Cashiers
 insert into zooemployees values (681102346, 'Karl', 'Callahan', 'Cashier', '1312 Fire Access Rd, Grand Rapids, MI', 16000, '1958-12-09', 'M', 635052791, 'Tiger Realm');
@@ -273,7 +274,7 @@ insert into animal values (160, 'Bald Eagle', 5, 'M', 149039012, 900, 'Pelican P
 insert into animal values (161, 'Bald Eagle', 4, 'F', 149039012, 930, 'Pelican Pier');
 insert into animal values (170, 'Pelican', 5, 'M', 149039012, 1000, 'Pelican Pier');
 insert into animal values (171, 'Pelican', 5, 'F', 149039012, 1030, 'Pelican Pier');
-insert into animal values (180, 'Flamingo', 2, 'F', 149039012, 11:00, 'Pelican Pier');
+insert into animal values (180, 'Flamingo', 2, 'F', 149039012, 1100, 'Pelican Pier');
 insert into animal values (181, 'Flamingo', 2, 'F', 149039012, 1130, 'Pelican Pier');
 insert into animal values (182, 'Flamingo', 4, 'F', 149039012, 1200, 'Pelican Pier');
 insert into animal values (183, 'Flamingo', 3, 'F', 149039012, 1230, 'Pelican Pier');
@@ -434,7 +435,7 @@ insert into worksat values (416860165, 16);
 insert into worksat values (378213720, 21);
 insert into worksat values (256728014, 21);
 --
-insert into animal values (479, 'Gorilla', 5, 'F', 103010924, 100, 'Monkeys');
+--insert into animal values (479, 'Gorilla', 5, 'F', 103010924, 100, 'Monkeys');
 --
 COMMIT;
 --
