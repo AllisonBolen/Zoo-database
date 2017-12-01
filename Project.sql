@@ -411,29 +411,29 @@ insert into shopproducts values (24, 'Ornament');
 insert into shopproducts values (24, 'Key Chain');
 insert into shopproducts values (24, 'T-Shirt');
 --
--- -- Works At
--- insert into worksat values (681102346, 13);
--- insert into worksat values (167360529, 14);
--- insert into worksat values (531256644, 10);
--- insert into worksat values (370125667, 15);
--- insert into worksat values (192760485, 17);
--- insert into worksat values (464626469, 11);
--- insert into worksat values (321184990, 19);
--- insert into worksat values (811420103, 20);
--- insert into worksat values (278786624, 21);
--- insert into worksat values (260437927, 23);
--- insert into worksat values (564364430, 22);
--- insert into worksat values (763010925, 18);
--- insert into worksat values (313236075, 12);
--- insert into worksat values (251828867, 16);
--- insert into worksat values (178269601, 24);
--- insert into worksat values (574127433, 10);
--- insert into worksat values (255728306, 23);
--- insert into worksat values (427481397, 16);
--- insert into worksat values (416860165, 16);
--- insert into worksat values (378213720, 21);
--- insert into worksat values (256728014, 21);
--- --
+-- Works At
+insert into worksat values (681102346, 13);
+insert into worksat values (167360529, 14);
+insert into worksat values (531256644, 10);
+insert into worksat values (370125667, 15);
+insert into worksat values (192760485, 17);
+insert into worksat values (464626469, 11);
+insert into worksat values (321184990, 19);
+insert into worksat values (811420103, 20);
+insert into worksat values (278786624, 21);
+insert into worksat values (260437927, 23);
+insert into worksat values (564364430, 22);
+insert into worksat values (763010925, 18);
+insert into worksat values (313236075, 12);
+insert into worksat values (251828867, 16);
+insert into worksat values (178269601, 24);
+insert into worksat values (574127433, 10);
+insert into worksat values (255728306, 23);
+insert into worksat values (427481397, 16);
+insert into worksat values (416860165, 16);
+insert into worksat values (378213720, 21);
+insert into worksat values (256728014, 21);
+--
 COMMIT;
 --
 SET ECHO 
