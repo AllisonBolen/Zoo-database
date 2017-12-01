@@ -24,7 +24,7 @@ empssn		CHAR(9)			PRIMARY KEY,
 firstname	VARCHAR2(15)	NOT NULL,
 lastname	VARCHAR2(15)	NOT NULL,
 position	VARCHAR2(15)	NOT NULL,
-eaddress	VARCHAR2(30)	NOT NULL,		
+eaddress	VARCHAR2(60)	NOT NULL,		
 esalary		NUMBER(10,2)	NOT NULL,
 ebdate		DATE			NOT NULL,
 egender		CHAR			NOT NULL,
@@ -47,7 +47,7 @@ managerssn	CHAR(9)			NOT NULL
 CREATE TABLE shop
 (
 shopid		INTEGER			PRIMARY KEY,
-sname		VARCHAR2(15)	NOT NULL,
+sname		VARCHAR2(30)	NOT NULL,
 exhibitname	VARCHAR2(20)	NOT NULL
 );
 --
@@ -55,7 +55,7 @@ exhibitname	VARCHAR2(20)	NOT NULL
 CREATE TABLE animal
 (
 aid			INTEGER			PRIMARY KEY,
-species		VARCHAR2(15)	NOT NULL,
+species		VARCHAR2(30)	NOT NULL,
 age			INTEGER			NOT NULL,
 agender		CHAR			NOT NULL,
 empssn		CHAR(9)			NOT	NULL,
@@ -74,7 +74,7 @@ PRIMARY KEY(exhibitname, evdate)
 CREATE TABLE shopproducts
 (
 shopid		INTEGER,
-productname	VARCHAR2(20),
+productname	VARCHAR2(35),
 PRIMARY KEY(shopid, productname)		
 );
 --
@@ -135,6 +135,35 @@ Deferrable initially deferred;
 --
 alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD';
 --
+-- Exhibits
+insert into exhibit values ('Tiger Realm', 'Temperate', 635052791);
+insert into exhibit values ('Shores Aquarium', 'Polar', 543145276);
+insert into exhibit values ('Pelican Pier', 'Temperate', 187225055);
+insert into exhibit values ('Tropic Treasures', 'Tropical', 397981967);
+insert into exhibit values ('Wild Way Trail', 'Temperate', 405249752);
+insert into exhibit values ('Petting Zoo', 'Temperate', 198204924);
+insert into exhibit values ('Africa', 'Arid', 306369902);
+insert into exhibit values ('North America', 'Temperate', 594494079);
+insert into exhibit values ('South America', 'Mediterranean', 660054663);
+insert into exhibit values ('Frogs', 'Tropical', 170725571);
+insert into exhibit values ('Forest Realm', 'Temperate', 114327791);
+insert into exhibit values ('Monkeys', 'Tropical', 216407536);
+--
+-- supervisors
+insert into zooemployees values (130423454, 'Ronnie', 'Alvarado', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', '72000', '1970-04-15', 'M', NULL, 'Pelican Pier');
+insert into zooemployees values (635052791, 'Patricia', 'Scott', 'Supervisor', '1743 Cinnamon Lane, Grand Rapids, MI', '60000', '1971-09-27', 'F', 130423454, 'Tiger Realm');
+insert into zooemployees values (543145276, 'Brenda', 'Myers', 'Supervisor', '2338 Skinner Hollow Road, Grand Rapids, MI', '61000', '1962-05-31', 'F', 130423454, 'Shores Aquarium');
+insert into zooemployees values (187225055, 'Michael', 'Tejada', 'Supervisor', '531 Stoney Lonesome Road, Grand Rapids, MI', '62000', '1975-09-01', 'M', 130423454, 'Pelican Pier');
+insert into zooemployees values (397981967, 'David', 'Gullett', 'Supervisor', '4796 Trouser Leg Road, Grand Rapids, MI', '63000', '1979-01-29', 'M', 130423454, 'Tropic Treasures');
+insert into zooemployees values (405249752, 'Reginald', 'Phillips', 'Supervisor', '1984 Straford Park, Grand Rapids, MI', '64000', '1985-08-22', 'M', 130423454, 'Wild Way Trail');
+insert into zooemployees values (198204924, 'Jack', 'Arnold', 'Supervisor', '2385 Pride Avenue, Grand Rapids, MI', '65000', '1983-05-10', 'M', 130423454, 'Petting Zoo');
+insert into zooemployees values (306369902, 'Robert', 'Bradley', 'Supervisor', '1524 Neville Street, Grand Rapids, MI', '66000', '1974-01-24', 'M', 130423454, 'Africa');
+insert into zooemployees values (594494079, 'Sheila', 'Lane', 'Supervisor', '4387 Badger Pond Lane, Grand Rapids, MI', '67000', '1975-11-13', 'F', 130423454, 'North America');
+insert into zooemployees values (660054663, 'Jennifer', 'Atencio', 'Supervisor', '4035 Wood Street, Grand Rapids, MI', '68000', '1989-12-05', 'F', 130423454, 'South America');
+insert into zooemployees values (170725571, 'Allie', 'Owens', 'Supervisor', '3475 Lost Creek Road, Grand Rapids, MI', '69000', '1985-12-14', 'F', 130423454, 'Frogs');
+insert into zooemployees values (114327791, 'Jennifer', 'Doe', 'Supervisor', '710 Huntz Lane, Grand Rapids, MI', '70000', '1970-12-22', 'F', 130423454, 'Forest Realm');
+insert into zooemployees values (216407536, 'Georgia', 'Murray', 'Supervisor', '2236 Blue Spruce Lane, Grand Rapids, MI', '71000', '1976-05-19', 'F', 130423454, 'Monkeys');
+--
 -- Zoo Cashiers
 insert into zooemployees values (681102346, 'Karl', 'Callahan', 'Cashier', '1312 Fire Access Rd, Grand Rapids, MI', '16000', '1958-12-09', 'M', 635052791, 'Tiger Realm');
 insert into zooemployees values (167360529, 'Richard', 'Smith', 'Cashier', '2777 Conference Center Way, Grand Rapids, MI', '16100', '1979-04-30', 'M', 635052791, 'Tiger Realm');
@@ -152,7 +181,7 @@ insert into zooemployees values (313236075, 'Richard', 'Paul', 'Cashier', '4950 
 insert into zooemployees values (251828867, 'Benjamin', 'Luong', 'Cashier', '2317 Marion Street, Grand Rapids, MI', '17300', '1993-02-27', 'M', 397981967, 'Tropic Treasures');
 insert into zooemployees values (178269601, 'Gina', 'Clear', 'Cashier', '301 Coal Street, Grand Rapids, MI', '17400', '1990-08-27', 'F', 216407536, 'Monkeys');
 --
--- Zoo Baristas
+--Zoo Baristas
 insert into zooemployees values (574127433, 'Monica', 'Kamp', 'Barista', '1709 Williams Mine Road, Grand Rapids, MI', '20800', '1993-07-07', 'F', 187225055, 'Pelican Pier');
 insert into zooemployees values (255728306, 'Carl', 'Guerra', 'Barista', '4331 Hart Country Lane, Grand Rapids, MI', '20900', '1988-10-16', 'M', 114327791, 'Forest Realm');
 --
@@ -203,35 +232,6 @@ insert into zooemployees values (765189816, 'William', 'Richie', 'Vet', '3888 Cr
 insert into zooemployees values (681108756, 'Jessica', 'Gonzalez', 'Vet', '988 Concord Street, Grand Rapids, MI', '59000', '1991-07-11', 'F', 170725571, 'Frogs');
 insert into zooemployees values (126122218, 'Angela', 'Rice', 'Vet', '4760 Valley View Drive, Grand Rapids, MI', '60000', '1987-12-11', 'F', 114327791, 'Forest Realm');
 insert into zooemployees values (168542187, 'Nathan', 'Jones', 'Vet', '2631 Browning Lane, Grand Rapids, MI', '61000', '1980-12-29', 'M', 216407536, 'Monkeys');
---
--- Supervisors
-insert into zooemployees values (635052791, 'Patricia', 'Scott', 'Supervisor', '1743 Cinnamon Lane, Grand Rapids, MI', '60000', '1971-09-27', 'F', 130423454, 'Tiger Realm');
-insert into zooemployees values (543145276, 'Brenda', 'Myers', 'Supervisor', '2338 Skinner Hollow Road, Grand Rapids, MI', '61000', '1962-05-31', 'F', 130423454, 'Shores Aquarium');
-insert into zooemployees values (187225055, 'Michael', 'Tejada', 'Supervisor', '531 Stoney Lonesome Road, Grand Rapids, MI', '62000', '1975-09-01', 'M', 130423454, 'Pelican Pier');
-insert into zooemployees values (397981967, 'David', 'Gullett', 'Supervisor', '4796 Trouser Leg Road, Grand Rapids, MI', '63000', '1979-01-29', 'M', 130423454, 'Tropic Treasures');
-insert into zooemployees values (405249752, 'Reginald', 'Phillips', 'Supervisor', '1984 Straford Park, Grand Rapids, MI', '64000', '1985-08-22', 'M', 130423454, 'Wild Way Trail');
-insert into zooemployees values (198204924, 'Jack', 'Arnold', 'Supervisor', '2385 Pride Avenue, Grand Rapids, MI', '65000', '1983-05-10', 'M', 130423454, 'Petting Zoo');
-insert into zooemployees values (306369902, 'Robert', 'Bradley', 'Supervisor', '1524 Neville Street, Grand Rapids, MI', '66000', '1974-01-24', 'M', 130423454, 'Africa');
-insert into zooemployees values (594494079, 'Sheila', 'Lane', 'Supervisor', '4387 Badger Pond Lane, Grand Rapids, MI', '67000', '1975-11-13', 'F', 130423454, 'North America');
-insert into zooemployees values (660054663, 'Jennifer', 'Atencio', 'Supervisor', '4035 Wood Street, Grand Rapids, MI', '68000', '1989-12-05', 'F', 130423454, 'South America');
-insert into zooemployees values (170725571, 'Allie', 'Owens', 'Supervisor', '3475 Lost Creek Road, Grand Rapids, MI', '69000', '1985-12-14', 'F', 130423454, 'Frogs');
-insert into zooemployees values (114327791, 'Jennifer', 'Doe', 'Supervisor', '710 Huntz Lane, Grand Rapids, MI', '70000', '1970-12-22', 'F', 130423454, 'Forest Realm');
-insert into zooemployees values (216407536, 'Georgia', 'Murray', 'Supervisor', '2236 Blue Spruce Lane, Grand Rapids, MI', '71000', '1976-05-19', 'F', 130423454, 'Monkeys');
-insert into zooemployees values (130423454, 'Ronnie', 'Alvarado', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', '72000', '1970-04-15', 'M', 216407536, 'Pelican Pier');
---
--- Exhibits
-insert into exhibit values ('Tiger Realm', 'Temperate', 635052791);
-insert into exhibit values ('Shores Aquarium', 'Polar', 543145276);
-insert into exhibit values ('Pelican Pier', 'Temperate', 187225055);
-insert into exhibit values ('Tropic Treasures', 'Tropical', 397981967);
-insert into exhibit values ('Wild Way Trail', 'Temperate', 405249752);
-insert into exhibit values ('Petting Zoo', 'Temperate', 198204924);
-insert into exhibit values ('Africa', 'Arid', 306369902);
-insert into exhibit values ('North America', 'Temperate', 594494079);
-insert into exhibit values ('South America', 'Mediterranean', 660054663);
-insert into exhibit values ('Frogs', 'Tropical', 170725571);
-insert into exhibit values ('Forest Realm', 'Temperate', 114327791);
-insert into exhibit values ('Monkeys', 'Tropical', 216407536);
 --
 -- Shops
 insert into shop values (10, 'Coffee Station', 'Pelican Pier');
@@ -349,95 +349,92 @@ insert into event values ('Forest Realm', '2018-06-06', 'Bird Show');
 insert into event values ('Forest Realm', '2018-06-07', 'Bird Show');
 --
 -- Shop Products
-insert into shopproducts values ('10', 'Latte');
-insert into shopproducts values ('10', 'Small Coffee');
-insert into shopproducts values ('10', 'Large Coffee');
-insert into shopproducts values ('10', 'Tea');
-insert into shopproducts values ('10', 'Espresso');
-insert into shopproducts values ('10', 'Water');
-insert into shopproducts values ('11', 'Guide Book');
-insert into shopproducts values ('11', 'Day Pass');
-insert into shopproducts values ('11', 'Membership Pass');
-insert into shopproducts values ('12', 'Basic Balloon');
-insert into shopproducts values ('12', 'Animal Balloon');
-insert into shopproducts values ('13', 'Pin');
-insert into shopproducts values ('13', 'Tumbler');
-insert into shopproducts values ('13', 'Shot Glass');
-insert into shopproducts values ('13', 'Ornament');
-insert into shopproducts values ('13', 'Key Chain');
-insert into shopproducts values ('13', 'T-Shirt');
-insert into shopproducts values ('14', 'Small Lemonade');
-insert into shopproducts values ('14', 'Large Lemonade');
-insert into shopproducts values ('15', 'Kid Sunglasses');
-insert into shopproducts values ('15', 'Adult Sunglasses');
-insert into shopproducts values ('16', 'Sushi Roll');
-insert into shopproducts values ('16', 'Sushi Burrito');
-insert into shopproducts values ('16', 'Popcorn Shrimp');
-insert into shopproducts values ('16', 'Fish Sandwich');
-insert into shopproducts values ('16', 'Soda');
-insert into shopproducts values ('16', 'Water');
-insert into shopproducts values ('17', 'Vanilla Ice Cream');
-insert into shopproducts values ('17', 'Chocolate Ice Cream');
-insert into shopproducts values ('17', 'Superman Ice Cream');
-insert into shopproducts values ('17', 'Chocolate Chip Ice Cream');
-insert into shopproducts values ('17', 'Neopolitan Ice Cream');
-insert into shopproducts values ('18', 'Novelty Hat');
-insert into shopproducts values ('18', 'Baseball Hat');
-insert into shopproducts values ('18', 'Bucket Hat');
-insert into shopproducts values ('19', 'Stuffed Tiger');
-insert into shopproducts values ('19', 'Stuffed Penguin');
-insert into shopproducts values ('19', 'Stuffed Bear');
-insert into shopproducts values ('19', 'Stuffed Monkey');
-insert into shopproducts values ('20', 'Large Popcorn');
-insert into shopproducts values ('20', 'Small Popcorn');
-insert into shopproducts values ('21', 'Turkey Leg');
-insert into shopproducts values ('21', 'Kabbob');
-insert into shopproducts values ('21', 'Chicken Melt');
-insert into shopproducts values ('21', 'Soda');
-insert into shopproducts values ('21', 'Water');
-insert into shopproducts values ('22', 'T-Shirt');
-insert into shopproducts values ('22', 'Keychain');
-insert into shopproducts values ('22', 'Tumblr');
-insert into shopproducts values ('23', 'Latte');
-insert into shopproducts values ('23', 'Small Coffee');
-insert into shopproducts values ('23', 'Large Coffee');
-insert into shopproducts values ('23', 'Tea');
-insert into shopproducts values ('23', 'Espresso');
-insert into shopproducts values ('23', 'Water');
-insert into shopproducts values ('24', 'Water');
-insert into shopproducts values ('25', 'Pin');
-insert into shopproducts values ('25', 'Tumbler');
-insert into shopproducts values ('25', 'Shot Glass');
-insert into shopproducts values ('25', 'Ornament');
-insert into shopproducts values ('25', 'Key Chain');
-insert into shopproducts values ('25', 'T-Shirt');
+insert into shopproducts values (10, 'Latte');
+insert into shopproducts values (10, 'Small Coffee');
+insert into shopproducts values (10, 'Large Coffee');
+insert into shopproducts values (10, 'Tea');
+insert into shopproducts values (10, 'Espresso');
+insert into shopproducts values (10, 'Water');
+insert into shopproducts values (11, 'Guide Book');
+insert into shopproducts values (11, 'Day Pass');
+insert into shopproducts values (11, 'Membership Pass');
+insert into shopproducts values (12, 'Basic Balloon');
+insert into shopproducts values (12, 'Animal Balloon');
+insert into shopproducts values (13, 'Pin');
+insert into shopproducts values (13, 'Tumbler');
+insert into shopproducts values (13, 'Shot Glass');
+insert into shopproducts values (13, 'Ornament');
+insert into shopproducts values (13, 'Key Chain');
+insert into shopproducts values (13, 'T-Shirt');
+insert into shopproducts values (14, 'Small Lemonade');
+insert into shopproducts values (14, 'Large Lemonade');
+insert into shopproducts values (15, 'Kid Sunglasses');
+insert into shopproducts values (15, 'Adult Sunglasses');
+insert into shopproducts values (16, 'Sushi Roll');
+insert into shopproducts values (16, 'Sushi Burrito');
+insert into shopproducts values (16, 'Popcorn Shrimp');
+insert into shopproducts values (16, 'Fish Sandwich');
+insert into shopproducts values (16, 'Soda');
+insert into shopproducts values (16, 'Water');
+insert into shopproducts values (17, 'Vanilla Ice Cream');
+insert into shopproducts values (17, 'Chocolate Ice Cream');
+insert into shopproducts values (17, 'Superman Ice Cream');
+insert into shopproducts values (17, 'Chocolate Chip Ice Cream');
+insert into shopproducts values (17, 'Neopolitan Ice Cream');
+insert into shopproducts values (18, 'Novelty Hat');
+insert into shopproducts values (18, 'Baseball Hat');
+insert into shopproducts values (18, 'Bucket Hat');
+insert into shopproducts values (19, 'Stuffed Tiger');
+insert into shopproducts values (19, 'Stuffed Penguin');
+insert into shopproducts values (19, 'Stuffed Bear');
+insert into shopproducts values (19, 'Stuffed Monkey');
+insert into shopproducts values (20, 'Large Popcorn');
+insert into shopproducts values (20, 'Small Popcorn');
+insert into shopproducts values (21, 'Turkey Leg');
+insert into shopproducts values (21, 'Kabbob');
+insert into shopproducts values (21, 'Chicken Melt');
+insert into shopproducts values (21, 'Soda');
+insert into shopproducts values (21, 'Water');
+insert into shopproducts values (22, 'T-Shirt');
+insert into shopproducts values (22, 'Keychain');
+insert into shopproducts values (22, 'Tumblr');
+insert into shopproducts values (23, 'Latte');
+insert into shopproducts values (23, 'Small Coffee');
+insert into shopproducts values (23, 'Large Coffee');
+insert into shopproducts values (23, 'Tea');
+insert into shopproducts values (23, 'Espresso');
+insert into shopproducts values (23, 'Water');
+insert into shopproducts values (24, 'Pin');
+insert into shopproducts values (24, 'Tumbler');
+insert into shopproducts values (24, 'Shot Glass');
+insert into shopproducts values (24, 'Ornament');
+insert into shopproducts values (24, 'Key Chain');
+insert into shopproducts values (24, 'T-Shirt');
 --
--- Works At
-insert into worksat values (681102346, 13);
-insert into worksat values (167360529, 14);
-insert into worksat values (531256644, 10);
-insert into worksat values (370125667, 15);
-insert into worksat values (192760485, 17);
-insert into worksat values (464626469, 11);
-insert into worksat values (321184990, 19);
-insert into worksat values (811420103, 20);
-insert into worksat values (278786624, 21);
-insert into worksat values (260437927, 23);
-insert into worksat values (564364430, 22);
-insert into worksat values (763010925, 18);
-insert into worksat values (313236075, 12);
-insert into worksat values (251828867, 16);
-insert into worksat values (178269601, 24);
-insert into worksat values (574127433, 10);
-insert into worksat values (255728306, 23);
-insert into worksat values (427481397, 16);
-insert into worksat values (416860165, 16);
-insert into worksat values (378213720, 21);
-insert into worksat values (256728014, 21);
-
---
+-- -- Works At
+-- insert into worksat values (681102346, 13);
+-- insert into worksat values (167360529, 14);
+-- insert into worksat values (531256644, 10);
+-- insert into worksat values (370125667, 15);
+-- insert into worksat values (192760485, 17);
+-- insert into worksat values (464626469, 11);
+-- insert into worksat values (321184990, 19);
+-- insert into worksat values (811420103, 20);
+-- insert into worksat values (278786624, 21);
+-- insert into worksat values (260437927, 23);
+-- insert into worksat values (564364430, 22);
+-- insert into worksat values (763010925, 18);
+-- insert into worksat values (313236075, 12);
+-- insert into worksat values (251828867, 16);
+-- insert into worksat values (178269601, 24);
+-- insert into worksat values (574127433, 10);
+-- insert into worksat values (255728306, 23);
+-- insert into worksat values (427481397, 16);
+-- insert into worksat values (416860165, 16);
+-- insert into worksat values (378213720, 21);
+-- insert into worksat values (256728014, 21);
+-- --
 COMMIT;
 --
-
 SET ECHO 
 SPOOL OFF
