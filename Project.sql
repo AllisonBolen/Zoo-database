@@ -1,14 +1,20 @@
 SPOOL ZooDB.out
 SET ECHO ON
 --
--- 353 Database Project
--- Zoo Database
+-- CIS 353 - Database Project: Zoo Database
 --
--- *Authors
--- <Allison Bolen>
--- <Andrew Olesak>
--- <Jake Walton>
--- <Kasey Walton>
+-- Authors:
+--
+-- Allison Bolen
+-- Andrew Olesak
+-- Jake Walton
+-- Kasey Stowell
+--
+-- -----------------------------------------------------------
+-- The DROP commands below are placed here for convenience in
+-- order to drop the tables if they exist. If the tables don't
+-- exist, you'll get an error - just ignore the error.
+-- -----------------------------------------------------------
 --
 DROP TABLE zooemployees CASCADE CONSTRAINTS;
 DROP TABLE exhibit CASCADE CONSTRAINTS;
@@ -17,6 +23,10 @@ DROP TABLE animal CASCADE CONSTRAINTS;
 DROP TABLE event CASCADE CONSTRAINTS;
 DROP TABLE shopproducts CASCADE CONSTRAINTS;
 DROP TABLE worksat CASCADE CONSTRAINTS;
+--
+-- -----------------------------------------------------------
+-- CREATE TABLES
+-- -----------------------------------------------------------
 --
 CREATE TABLE zooemployees
 (
@@ -29,16 +39,35 @@ esalary		INTEGER			NOT NULL,
 ebdate		DATE			NOT NULL,
 egender		CHAR			NOT NULL,
 superssn	INTEGER,
-exhibitname	VARCHAR2(20)	NOT NULL
+exhibitname	VARCHAR2(20)	NOT NULL,
+/*
+ZC1: The position is one of: Supervisor, Cashier, Barista, Cook, 
+Janitor, Caretaker, or Vet.
+*/
+CONSTRAINT ZC1 CHECK (position IN ('Supervisor', 'Cashier', 'Barista', 
+					'Cook', 'Janitor', 'Caretaker', 'Vet')),
+/*
+ZC2: The employee gender is one of: M or F.
+*/
+CONSTRAINT ZC2 CHECK (egender IN ('M', 'F')),
+/*
+ZC3: A supervisor must have a salary greater than $40,000.
+*/
+CONSTRAINT ZC3 CHECK (NOT (position = 'Supervisor' AND esalary < 40000))
 --
---CONSTRAINT ZC1 CHECK ( NOT (position = 'Supervisor' AND esalary < 40000))
 );
 --
 CREATE TABLE exhibit
 (
 exhibitname	VARCHAR2(20)	PRIMARY KEY,	
 climate		VARCHAR2(20)	NOT NULL,
-managerssn	INTEGER			NOT NULL	
+managerssn	INTEGER,
+/*
+ZC4: The climate is one of: Temperate, Polar, Tropical, Arid, 
+or Mediterranean.
+*/
+CONSTRAINT ZC4 CHECK (climate IN ('Temperate', 'Polar', 'Tropical', 
+					'Arid', 'Mediterranean'))
 );
 --
 --
@@ -58,9 +87,15 @@ age			INTEGER			NOT NULL,
 agender		CHAR			NOT NULL,
 empssn		INTEGER			NOT	NULL,
 tendtime	INTEGER			NOT NULL,
-exhibitname	VARCHAR2(20)	NOT NULL
---
---CONSTRAINT ZC2 CHECK ( tendtime > 559 AND tendtime < 1900 )
+exhibitname	VARCHAR2(20)	NOT NULL,
+/*
+ZC5: The animal gender is one of: M or F.
+*/
+CONSTRAINT ZC5 CHECK (agender IN ('M', 'F')),
+/*
+ZC6: The animal tend time must be between 6:00 thru 19:00.
+*/
+CONSTRAINT ZC6 CHECK (tendtime > 559 AND tendtime < 1900)
 );
 --
 CREATE TABLE event
@@ -85,49 +120,125 @@ shopid		INTEGER,
 PRIMARY KEY(empssn, shopid)
 );
 --
---zooemployee foreign keys
-ALTER TABLE zooemployees
-ADD CONSTRAINT FK1 FOREIGN KEY (superssn) references zooemployees(empssn)
-Deferrable initially deferred;
-ALTER TABLE zooemployees
-ADD CONSTRAINT FK2 FOREIGN KEY (exhibitname) references exhibit(exhibitname)
-Deferrable initially deferred;
+-- -----------------------------------------------------------
+-- FOREIGN KEY CONSTRAINTS
+-- -----------------------------------------------------------
 --
---exhibit foreign key
+-- Zoo Employees
+/*
+FK1: Every supervisor must also be a zoo employee. Also: If an employee 
+is deleted, all the employees supervisees will have their superssn set 
+to NULL.
+*/
+ALTER TABLE zooemployees
+	ADD CONSTRAINT FK1 
+	FOREIGN KEY (superssn) 
+	REFERENCES zooemployees(empssn)
+	ON DELETE SET NULL
+	DEFERRABLE INITIALLY DEFERRED;
+/*
+FK2: Every zoo employees assigned exhibit must exist. Also: If an exhibit 
+is deleted, all employees working in the exhibit is also deleted.
+*/
+ALTER TABLE zooemployees
+	ADD CONSTRAINT FK2 
+	FOREIGN KEY (exhibitname) 
+	REFERENCES exhibit(exhibitname)
+	ON DELETE CASCADE
+	DEFERRABLE INITIALLY DEFERRED;
+--
+-- Exhibits
+/*
+FK3: Every exhibit manager must be an existing zoo employee. Also: if a
+manager is deleted, set the exhibits managerssn to NULL.
+*/
 ALTER TABLE exhibit
-ADD CONSTRAINT FK3 FOREIGN KEY (managerssn) references zooemployees(empssn)
-Deferrable initially deferred;
+	ADD CONSTRAINT FK3 
+	FOREIGN KEY (managerssn) 
+	REFERENCES zooemployees(empssn)
+	ON DELETE SET NULL
+	DEFERRABLE INITIALLY DEFERRED;
 --
---shop foreign key
+-- Shops
+/*
+FK4: All shops are located in an existing exhibit. Also: if an exhibit is
+deleted, all shops in the exhibit are also deleted.
+*/
 ALTER TABLE shop
-ADD CONSTRAINT FK4 FOREIGN KEY (exhibitname) references exhibit(exhibitname)
-Deferrable initially deferred;
+	ADD CONSTRAINT FK4 
+	FOREIGN KEY (exhibitname) 
+	REFERENCES exhibit(exhibitname)
+	ON DELETE CASCADE
+	DEFERRABLE INITIALLY DEFERRED;
 --
---animal foreign keys
+-- Animals
+/*
+FK5: All animals are taken care of by an existing zoo employee. Also: if
+an employee is deleted, all animals they take care of are also deleted.
+*/
 ALTER TABLE animal
-ADD CONSTRAINT FK5 FOREIGN KEY (empssn) references zooemployees(empssn)
-Deferrable initially deferred;
+	ADD CONSTRAINT FK5 
+	FOREIGN KEY (empssn) 
+	REFERENCES zooemployees(empssn)
+	ON DELETE CASCADE
+	DEFERRABLE INITIALLY DEFERRED;
+/*
+FK6: All animals must live in an exhisting exhibit. Also: if an exhibit is
+deleted, then all animals living in the exhibit are also deleted.
+*/
 ALTER TABLE animal
-ADD CONSTRAINT FK6 FOREIGN KEY (exhibitname) references exhibit(exhibitname)
-Deferrable initially deferred;
+	ADD CONSTRAINT FK6 
+	FOREIGN KEY (exhibitname) 
+	REFERENCES exhibit(exhibitname)
+	ON DELETE CASCADE
+	DEFERRABLE INITIALLY DEFERRED;
 --
---event foreign key
+-- Events
+/*
+FK7: All events are held in an exhisting exhibit. Also: if an exhibit is
+deleted, then also delete the event.
+*/
 ALTER TABLE event
-ADD CONSTRAINT FK7 FOREIGN KEY (exhibitname) references exhibit(exhibitname)
-Deferrable initially deferred;
+	ADD CONSTRAINT FK7 
+	FOREIGN KEY (exhibitname) 
+	REFERENCES exhibit(exhibitname)
+	ON DELETE CASCADE
+	DEFERRABLE INITIALLY DEFERRED;
 --
---shopproducts foreign key
+-- Shop Products
+/*
+FK8: All shop products are sold in an existing shop. Also: if a shop is
+deleted, then also delete the products sold in that shop.
+*/
 ALTER TABLE shopproducts
-ADD CONSTRAINT FK8 FOREIGN KEY (shopid) references shop(shopid)
-Deferrable initially deferred;
+	ADD CONSTRAINT FK8 
+	FOREIGN KEY (shopid) 
+	REFERENCES shop(shopid)
+	ON DELETE CASCADE
+	DEFERRABLE INITIALLY DEFERRED;
 --
---worksat foreign key
+-- Works At
+/*
+FK9: The employee that works at a shop is an existing zoo employee. Also:
+if the zoo employee is deleted, delete their works at relationship.
+*/
 ALTER TABLE worksat
-ADD CONSTRAINT FK9 FOREIGN KEY (empssn) references zooemployees(empssn) 
-Deferrable initially deferred;
+	ADD CONSTRAINT FK9 
+	FOREIGN KEY (empssn) 
+	REFERENCES zooemployees(empssn) 
+	ON DELETE CASCADE
+	DEFERRABLE INITIALLY DEFERRED;
+/*
+FK10: The shop that an employee works at must be an already existing shop.
+Also: if a shop is deleted, then delete the works at relationship with
+the zoo employees.
+*/
 ALTER TABLE worksat
-ADD CONSTRAINT FK10 FOREIGN KEY (shopid) references shop(shopid)
-Deferrable initially deferred;
+	ADD CONSTRAINT FK10 
+	FOREIGN KEY (shopid) 
+	REFERENCES shop(shopid)
+	ON DELETE CASCADE
+	DEFERRABLE INITIALLY DEFERRED;
 --
 -- -----------------------------------------------------
 -- Populate the database
@@ -135,7 +246,7 @@ Deferrable initially deferred;
 --
 alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD';
 --
--- supervisors
+-- Supervisors
 insert into zooemployees values (130423454, 'Ronnie', 'Alvarado', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 72000, '1970-04-15', 'M', NULL, 'Bugs');
 insert into zooemployees values (635052791, 'Patricia', 'Scott', 'Supervisor', '1743 Cinnamon Lane, Grand Rapids, MI', 60000, '1971-09-27', 'F', 130423454, 'Tiger Realm');
 insert into zooemployees values (543145276, 'Brenda', 'Myers', 'Supervisor', '2338 Skinner Hollow Road, Grand Rapids, MI', 61000, '1962-05-31', 'F', 130423454, 'Shores Aquarium');
@@ -144,7 +255,7 @@ insert into zooemployees values (397981967, 'David', 'Gullett', 'Supervisor', '4
 insert into zooemployees values (405249752, 'Reginald', 'Phillips', 'Supervisor', '1984 Straford Park, Grand Rapids, MI', 64000, '1985-08-22', 'M', 130423454, 'Wild Way Trail');
 insert into zooemployees values (198204924, 'Jack', 'Arnold', 'Supervisor', '2385 Pride Avenue, Grand Rapids, MI', 65000, '1983-05-10', 'M', 130423454, 'Petting Zoo');
 insert into zooemployees values (306369902, 'Robert', 'Bradley', 'Supervisor', '1524 Neville Street, Grand Rapids, MI', 66000, '1974-01-24', 'M', 130423454, 'Africa');
-insert into zooemployees values (594494079, 'Sheila', 'Lane', 'Supervisor', '4387 Badger Pond Lane, Grand Rapids, MI', 10, '1975-11-13', 'F', 130423454, 'North America');
+insert into zooemployees values (594494079, 'Sheila', 'Lane', 'Supervisor', '4387 Badger Pond Lane, Grand Rapids, MI', 67000, '1975-11-13', 'F', 130423454, 'North America');
 insert into zooemployees values (660054663, 'Jennifer', 'Atencio', 'Supervisor', '4035 Wood Street, Grand Rapids, MI', 68000, '1989-12-05', 'F', 130423454, 'South America');
 insert into zooemployees values (170725571, 'Allie', 'Owens', 'Supervisor', '3475 Lost Creek Road, Grand Rapids, MI', 69000, '1985-12-14', 'F', 130423454, 'Frogs');
 insert into zooemployees values (114327791, 'Jennifer', 'Doe', 'Supervisor', '710 Huntz Lane, Grand Rapids, MI', 70000, '1970-12-22', 'F', 130423454, 'Forest Realm');
@@ -435,9 +546,75 @@ insert into worksat values (416860165, 16);
 insert into worksat values (378213720, 21);
 insert into worksat values (256728014, 21);
 --
---insert into animal values (479, 'Gorilla', 5, 'F', 103010924, 100, 'Monkeys');
 --
+SET FEEDBACK ON
 COMMIT;
 --
-SET ECHO 
+-- -----------------------------------------------------
+-- QUERIES THAT PRINT DATABASE
+-- -----------------------------------------------------
+--
+--
+-- -----------------------------------------------------
+-- SQL QUERIES
+-- -----------------------------------------------------
+--
+-- Q4 - A join involving at least four relations
+-- For every employee who works at a shop located in the pelican pier exhibit select their ssn, first name, and salary
+select E.empssn, E.firstname, E.esalary
+from zooemployees E, shop S, exhibit X, worksat W
+where E.empssn = W.empssn and
+    W.shopid = S.shopid and
+    S.exhibitname = X.exhibitname and
+    X.exhibitname = 'Pelican Pier';
+--
+--
+-- Q5 - SUM, AVERAGE, GROUP BY, HAVING, and ORDER BY
+-- For every exhibit whose average salary is greater than 43,000, select the exhibit name and the sum of the salaries along with the average. Order by the sum
+select E.exhibitname, sum(E.esalary) as TotalSalarySum, avg(E.esalary) as AverageSalary
+from zooemployees E
+group by E.exhibitname
+having avg(E.esalary) > 43000
+order by sum(E.esalary);
+--
+--
+-- Q6 - A rank query
+-- Find the rank of the salary 23000 among all the salaries
+select rank(23000) within group (order by esalary)
+from zooemployees;
+--
+--
+-- Q7 - A top-N query
+-- Find the ssn, last name and salary of the 5 highest paid employees
+select empssn, lastname, esalary
+from (select *
+        from zooemployees
+        order by esalary desc)
+where rownum <6;
+--
+--
+-- Q8 - An outer join query
+-- For every employee select the ssn, first name, and salary.  Also show the animal ID and species if an employee tends animals
+select E.empssn, E.firstname, E.esalary, A.aid, A.species
+from zooemployees E left outer join animal A on A.empssn = E.empssn;
+--
+--
+-- Q9 - A correlated subquery
+-- For every employee who tends to animals and is male, select their ssn, last name, gender, and supervisor's ssn
+select E.empssn, E.lastname, E.egender, E.superssn
+from zooemployees E
+where E.egender = 'M' and
+        exists (select *
+                from animal A
+                where A.empssn = E.empssn);
+--
+-- -----------------------------------------------------
+-- INSERT/DELETE/UPDATE STATEMENTS
+-- -----------------------------------------------------
+--
+-- Testing ZC6
+insert into animal values (479, 'Gorilla', 5, 'F', 103010924, 100, 'Monkeys');
+--
+COMMIT;
+-- 
 SPOOL OFF
