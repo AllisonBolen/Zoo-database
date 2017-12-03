@@ -244,6 +244,8 @@ ALTER TABLE worksat
 -- Populate the database
 -- -----------------------------------------------------
 --
+SET FEEDBACK OFF
+--
 alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD';
 --
 -- Supervisors
@@ -653,11 +655,24 @@ where E.egender = 'M' and
 -- INSERT/DELETE/UPDATE STATEMENTS
 -- -----------------------------------------------------
 --
--- Testing ZC6
+-- Testing ZC6 violate
 insert into animal values (479, 'Gorilla', 5, 'F', 103010924, 100, 'Monkeys');
+-- Testing ZC3 violate
 insert into zooemployees values (130423650, 'Beth', 'Carl', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 8000, '1970-04-15', 'M', NULL, 'Bugs');
+-- Testing ZC2 violate
+insert into zooemployees values (130423650, 'Beth', 'Carl', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 8000, '1970-04-15', 'R', NULL, 'Bugs');
+-- Testing ZC1 violate
+insert into zooemployees values (130423650, 'Beth', 'Carl', 'Person', '4960 Farland Street, Grand Rapids, MI', 8000, '1970-04-15', 'M', NULL, 'Bugs');
+-- Testing ZC4 violate
+insert into exhibit values ('Petting Zoo', 'Cold', 198204924);
+-- Testing ZC5 violate
+insert into animal values (100, 'Tiger', 5, 'R', 622347022, 1030, 'Tiger Realm');
+-- Testing FC1
+delete from zooemployees WHERE empssn = 405249752;
+-- Testing FC2
+delete from exhibit where exhibitname = 'Shores Aquarium';
 
---
+
 COMMIT;
 -- 
 SPOOL OFF
