@@ -244,6 +244,8 @@ ALTER TABLE worksat
 -- Populate the database
 -- -----------------------------------------------------
 --
+SET FEEDBACK OFF
+--
 alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD';
 --
 -- Supervisors
@@ -554,10 +556,51 @@ COMMIT;
 -- QUERIES THAT PRINT DATABASE
 -- -----------------------------------------------------
 --
+SELECT * FROM zooemployees;
+SELECT * FROM exhibit;
+SELECT * FROM shop;
+SELECT * FROM animal;
+SELECT * FROM event;
+SELECT * FROM shopproducts;
+SELECT * FROM worksat;
 --
 -- -----------------------------------------------------
 -- SQL QUERIES
 -- -----------------------------------------------------
+--
+-- Q1 - Relational Division Query
+-- Find the SSN, first name, last name, and gender of every employee who tends to every animal whose species is penguins.
+select e.empssn, e.firstname, e.lastname, e.egender
+from zooemployees e
+where NOT EXISTS ((select a.aid
+					from animal a
+					where a.species = 'Penguin')
+					MINUS
+				 	(select a.aid
+						from animal a
+						where a.species = 'Penguin'
+						and a.empssn = e.empssn));
+--
+--
+-- Q2 - A non-correlated subquery, and a self-join
+-- Find the SSN, first name, and position of every employee who is not a supervisor
+select e.empssn, e.firstName, e.position
+from zooemployees e
+where e.empssn not in (select k.empssn 
+					from zooemployees n, zooemployees k
+					where n.superssn = k.empssn);
+--
+--
+-- Q3 - MINUS query 
+-- Find the essn, first name, salary, and position of employees whose salary is greater than 30,000 and are caretakers
+select e.empssn, e.firstname, e.esalary, e.position
+from zooemployees e
+where e.esalary > 30000
+MINUS
+select e.empssn, e.firstname, e.esalary, e.position
+from zooemployees e
+where e.position != 'Caretaker';
+--
 --
 -- Q4 - A join involving at least four relations
 -- For every employee who works at a shop located in the pelican pier exhibit select their ssn, first name, and salary
@@ -612,9 +655,24 @@ where E.egender = 'M' and
 -- INSERT/DELETE/UPDATE STATEMENTS
 -- -----------------------------------------------------
 --
--- Testing ZC6
+-- Testing ZC6 violate
 insert into animal values (479, 'Gorilla', 5, 'F', 103010924, 100, 'Monkeys');
---
+-- Testing ZC3 violate
+insert into zooemployees values (130423650, 'Beth', 'Carl', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 8000, '1970-04-15', 'M', NULL, 'Bugs');
+-- Testing ZC2 violate
+insert into zooemployees values (130423650, 'Beth', 'Carl', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 8000, '1970-04-15', 'R', NULL, 'Bugs');
+-- Testing ZC1 violate
+insert into zooemployees values (130423650, 'Beth', 'Carl', 'Person', '4960 Farland Street, Grand Rapids, MI', 8000, '1970-04-15', 'M', NULL, 'Bugs');
+-- Testing ZC4 violate
+insert into exhibit values ('Petting Zoo', 'Cold', 198204924);
+-- Testing ZC5 violate
+insert into animal values (100, 'Tiger', 5, 'R', 622347022, 1030, 'Tiger Realm');
+-- Testing FC1
+delete from zooemployees WHERE empssn = 405249752;
+-- Testing FC2
+delete from exhibit where exhibitname = 'Shores Aquarium';
+
+
 COMMIT;
 -- 
 SPOOL OFF
