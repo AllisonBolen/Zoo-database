@@ -5,7 +5,7 @@ SET ECHO ON
 --
 -- Authors:
 --
--- Allison Bolen
+-- Allison Bolen2
 -- Andrew Olesak
 -- Jake Walton
 -- Kasey Stowell
@@ -279,21 +279,21 @@ insert into exhibit values ('Monkeys', 'Tropical', 216407536);
 insert into exhibit values ('Bugs', 'Tropical', 130423454);
 --
 -- Zoo Cashiers
-insert into zooemployees values (681102346, 'Karl', 'Callahan', 'Cashier', '1312 Fire Access Rd', 16000, '1958-12-09', 'M', 635052791, 'Tiger Realm');
-insert into zooemployees values (167360529, 'Richard', 'Smith', 'Cashier', '2777 Conference Center Way', 16100, '1979-04-30', 'M', 635052791, 'Tiger Realm');
-insert into zooemployees values (531256644, 'Greg', 'Diaz', 'Cashier', '3603 Mudlick Road', 16200, '1992-06-22', 'M', 187225055, 'Pelican Pier');
-insert into zooemployees values (370125667, 'Gertrude', 'English', 'Cashier', '1692 Howard Street', 16300, '1992-10-08', 'F', 397981967, 'Tropic Treasures');
-insert into zooemployees values (192760485, 'Geraldine', 'Guest', 'Cashier', '3778 Turkey Pen Road', 16400, '1988-02-11', 'F', 405249752, 'Wild Way Trail');
-insert into zooemployees values (464626469, 'Mary', 'Brown', 'Cashier', '4685 Giraffe Hill Drive', 16500, '1989-06-28', 'F', 187225055, 'Pelican Pier');
-insert into zooemployees values (321184990, 'Holly', 'Hess', 'Cashier', '33 Butternut Lane', 16600, '1953-02-03', 'F', 306369902, 'Africa');
-insert into zooemployees values (811420103, 'Ronnie', 'Gaillard', 'Cashier', '3539 Freshour Circle', 16700, '1990-10-28', 'M', 594494079, 'North America');
-insert into zooemployees values (278786624, 'Adam', 'Spencer', 'Cashier', '3542 Upland Avenue', 16800, '1983-05-05', 'M', 660054663, 'South America');
-insert into zooemployees values (260437927, 'Cassie', 'Schmitt', 'Cashier', '2706 Kidd Avenue', 16900, '1994-04-07', 'F', 114327791, 'Forest Realm');
-insert into zooemployees values (564364430, 'Wally', 'Perkinson', 'Cashier', '2647 Austin Avenue', 17000, '1992-03-21', 'M', 114327791, 'Forest Realm');
-insert into zooemployees values (763010925, 'Joanna', 'Sterling', 'Cashier', '51 Chenoweth Drive', 17100, '1992-09-29', 'F', 405249752, 'Wild Way Trail');
-insert into zooemployees values (313236075, 'Richard', 'Paul', 'Cashier', '4950 Raintree Boulevard', 17200, '1992-10-06', 'M', 187225055, 'Pelican Pier');
-insert into zooemployees values (251828867, 'Benjamin', 'Luong', 'Cashier', '2317 Marion Street', 17300, '1993-02-27', 'M', 397981967, 'Tropic Treasures');
-insert into zooemployees values (178269601, 'Gina', 'Clear', 'Cashier', '301 Coal Street', 17400, '1990-08-27', 'F', 216407536, 'Monkeys');
+insert into zooemployees values (681102346, 'Karl', 'Callahan', 'Cashier', '131 Fire Rd', 16000, '1958-12-09', 'M', 635052791, 'Tiger Realm');
+insert into zooemployees values (167360529, 'Richard', 'Smith', 'Cashier', '277 Center Way', 16100, '1979-04-30', 'M', 635052791, 'Tiger Realm');
+insert into zooemployees values (531256644, 'Greg', 'Diaz', 'Cashier', '360 Mud Rd', 16200, '1992-06-22', 'M', 187225055, 'Pelican Pier');
+insert into zooemployees values (370125667, 'Gertrude', 'English', 'Cashier', '169 Howard Rd', 16300, '1992-10-08', 'F', 397981967, 'Tropic Treasures');
+insert into zooemployees values (192760485, 'Geraldine', 'Guest', 'Cashier', '377 Turkey Rd', 16400, '1988-02-11', 'F', 405249752, 'Wild Way Trail');
+insert into zooemployees values (464626469, 'Mary', 'Brown', 'Cashier', '4685 Hill Dr', 16500, '1989-06-28', 'F', 187225055, 'Pelican Pier');
+insert into zooemployees values (321184990, 'Holly', 'Hess', 'Cashier', '33 Butter Ln', 16600, '1953-02-03', 'F', 306369902, 'Africa');
+insert into zooemployees values (811420103, 'Ronnie', 'Gaillard', 'Cashier', '353 Fresh Dr', 16700, '1990-10-28', 'M', 594494079, 'North America');
+insert into zooemployees values (278786624, 'Adam', 'Spencer', 'Cashier', '354 Upland Ave', 16800, '1983-05-05', 'M', 660054663, 'South America');
+insert into zooemployees values (260437927, 'Cassie', 'Schmitt', 'Cashier', '270 Kidd Ave', 16900, '1994-04-07', 'F', 114327791, 'Forest Realm');
+insert into zooemployees values (564364430, 'Wally', 'Perkinson', 'Cashier', '264 Austin Ave', 17000, '1992-03-21', 'M', 114327791, 'Forest Realm');
+insert into zooemployees values (763010925, 'Joanna', 'Sterling', 'Cashier', '513 Cheno Dr', 17100, '1992-09-29', 'F', 405249752, 'Wild Way Trail');
+insert into zooemployees values (313236075, 'Richard', 'Paul', 'Cashier', '495 Rain Bvd', 17200, '1992-10-06', 'M', 187225055, 'Pelican Pier');
+insert into zooemployees values (251828867, 'Benjamin', 'Luong', 'Cashier', '231 Marion St', 17300, '1993-02-27', 'M', 397981967, 'Tropic Treasures');
+insert into zooemployees values (178269601, 'Gina', 'Clear', 'Cashier', '301 Coal St', 17400, '1990-08-27', 'F', 216407536, 'Monkeys');
 --
 --Zoo Baristas
 insert into zooemployees values (574127433, 'Monica', 'Kamp', 'Barista', '170 Mine Rd', 20800, '1993-07-07', 'F', 187225055, 'Pelican Pier');
@@ -306,18 +306,18 @@ insert into zooemployees values (378213720, 'Avery', 'Foster', 'Cook', '691 Ten 
 insert into zooemployees values (256728014, 'Stephanie', 'Grant', 'Cook', '151 Junior Ave', 23100, '1991-10-21', 'F', 660054663, 'South America');
 --
 -- Caretakers
-insert into zooemployees values (622347022, 'Annie', 'Allen', 'Caretaker', '797 Heritage Road', 35000, '1986-11-05', 'F', 635052791, 'Tiger Realm');
-insert into zooemployees values (392058668, 'Kelly', 'Vanwagenen', 'Caretaker', '442 Comfort Court', 35100, '1976-09-05', 'F', 543145276, 'Shores Aquarium');
-insert into zooemployees values (149039012, 'Jessica', 'Coburn', 'Caretaker', '4817 Webster Street', 35200, '1983-12-23', 'F', 187225055, 'Pelican Pier');
-insert into zooemployees values (595061909, 'Patrick', 'Shreve', 'Caretaker', '4843 Tyler Avenue', 35300, '1994-11-13', 'M', 397981967, 'Tropic Treasures');
-insert into zooemployees values (590600939, 'Teri', 'McClary', 'Caretaker', '326 Steve Hunt Road', 35400, '1967-05-01', 'F', 405249752, 'Wild Way Trail');
-insert into zooemployees values (135681064, 'Bernard', 'Johnston', 'Caretaker', '663 Melm Street', 35500, '1971-06-04', 'M', 198204924, 'Petting Zoo');
-insert into zooemployees values (511844657, 'John', 'Mathews', 'Caretaker', '3989 Sigley Road', 35600, '1983-06-18', 'M', 306369902, 'Africa');
-insert into zooemployees values (445661181, 'Samantha', 'Garcia', 'Caretaker', '90 Late Avenue', 35700, '1982-01-05', 'F', 594494079, 'North America');
-insert into zooemployees values (644284210, 'Catherine', 'Farrington', 'Caretaker', '4880 Brooke Street', 35800, '1988-09-24', 'F', 660054663, 'South America');
-insert into zooemployees values (421562138, 'Willie', 'Nixon', 'Caretaker', '3409 Wright Court', 35900, '1952-03-11', 'M', 170725571, 'Frogs');
-insert into zooemployees values (265036954, 'Kathy', 'Stewart', 'Caretaker', '4089 George Street', 36000, '1984-02-22', 'F', 114327791, 'Forest Realm');
-insert into zooemployees values (103010924, 'Marjorie', 'Castaneda', 'Caretaker', '1782 Anmoore Road', 36100, '1985-07-22', 'F', 216407536, 'Monkeys');
+insert into zooemployees values (622347022, 'Annie', 'Allen', 'Caretaker', '797 Heritage Rd', 35000, '1986-11-05', 'F', 635052791, 'Tiger Realm');
+insert into zooemployees values (392058668, 'Kelly', 'Vanwagenen', 'Caretaker', '442 Comfort Crt', 35100, '1976-09-05', 'F', 543145276, 'Shores Aquarium');
+insert into zooemployees values (149039012, 'Jessica', 'Coburn', 'Caretaker', '481 Webster St', 35200, '1983-12-23', 'F', 187225055, 'Pelican Pier');
+insert into zooemployees values (595061909, 'Patrick', 'Shreve', 'Caretaker', '483 Tyler Ave', 35300, '1994-11-13', 'M', 397981967, 'Tropic Treasures');
+insert into zooemployees values (590600939, 'Teri', 'McClary', 'Caretaker', '326 Steve Rd', 35400, '1967-05-01', 'F', 405249752, 'Wild Way Trail');
+insert into zooemployees values (135681064, 'Bernard', 'Johnston', 'Caretaker', '663 Melm St', 35500, '1971-06-04', 'M', 198204924, 'Petting Zoo');
+insert into zooemployees values (511844657, 'John', 'Mathews', 'Caretaker', '398 Sigley Rd', 35600, '1983-06-18', 'M', 306369902, 'Africa');
+insert into zooemployees values (445661181, 'Samantha', 'Garcia', 'Caretaker', '90 Late Ave', 35700, '1982-01-05', 'F', 594494079, 'North America');
+insert into zooemployees values (644284210, 'Catherine', 'Farrington', 'Caretaker', '480 Book St', 35800, '1988-09-24', 'F', 660054663, 'South America');
+insert into zooemployees values (421562138, 'Willie', 'Nixon', 'Caretaker', '340 Wright Crt', 35900, '1952-03-11', 'M', 170725571, 'Frogs');
+insert into zooemployees values (265036954, 'Kathy', 'Stewart', 'Caretaker', '489 George St', 36000, '1984-02-22', 'F', 114327791, 'Forest Realm');
+insert into zooemployees values (103010924, 'Marjorie', 'Castaneda', 'Caretaker', '182 Anmoore Rd', 36100, '1985-07-22', 'F', 216407536, 'Monkeys');
 --
 -- Vets
 insert into zooemployees values (571707179, 'Peggy', 'Baker', 'Vet', '169 Oak Rd', 50000, '1973-10-28', 'F', 635052791, 'Tiger Realm');
