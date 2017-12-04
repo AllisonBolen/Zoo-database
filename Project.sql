@@ -618,11 +618,11 @@ where E.egender = 'M' and
 -- -----------------------------------------------------
 --
 -- Testing ZC1 violate
-insert into zooemployees values (144423650, 'Andy', 'Carl', 'Person', '4960 Farland Street, Grand Rapids, MI', 8000, '1970-04-15', 'M', NULL, 'Bugs');
+insert into zooemployees values (144423650, 'Andy', 'Carl', 'Person', '4960 Farland Street', 8000, '1970-04-15', 'M', NULL, 'Bugs');
 -- Testing ZC2 violate
-insert into zooemployees values (133333651, 'Ju-lee', 'Carl', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 80000, '1970-04-15', 'R', NULL, 'Bugs');
+insert into zooemployees values (133333651, 'Ju-lee', 'Carl', 'Supervisor', '4960 Farland Street', 80000, '1970-04-15', 'R', NULL, 'Bugs');
 -- Testing ZC3 violate
-insert into zooemployees values (130423650, 'Beth', 'Carl', 'Supervisor', '4960 Farland Street, Grand Rapids, MI', 8000, '1970-04-15', 'M', NULL, 'Bugs');
+insert into zooemployees values (130423650, 'Beth', 'Carl', 'Supervisor', '4960 Farland Street', 8000, '1970-04-15', 'M', NULL, 'Bugs');
 -- Testing ZC4 violate
 insert into exhibit values ('Petting Zoo', 'Cold', 198204924);
 -- Testing ZC5 violate
