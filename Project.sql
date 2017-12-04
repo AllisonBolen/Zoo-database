@@ -1,5 +1,8 @@
 SPOOL ZooDB.out
 SET ECHO ON
+SET WRAP OFF
+SET LINESIZE 30000
+SET TRIMSPOOL ON
 --
 -- CIS 353 - Database Project: Zoo Database
 --
@@ -30,22 +33,26 @@ DROP TABLE worksat CASCADE CONSTRAINTS;
 --
 CREATE TABLE zooemployees
 (
-empssn		INTEGER			PRIMARY KEY,
-firstname	VARCHAR2(15)	NOT NULL,
-lastname	VARCHAR2(15)	NOT NULL,
-position	VARCHAR2(15)	NOT NULL,
-eaddress	VARCHAR2(60)	NOT NULL,
-esalary		INTEGER			NOT NULL,
-ebdate		DATE			NOT NULL,
-egender		CHAR			NOT NULL,
-superssn	INTEGER,
-exhibitname	VARCHAR2(20)	NOT NULL,
+empssn        INTEGER,
+firstname    VARCHAR2(10)    NOT NULL,
+lastname    VARCHAR2(10)    NOT NULL,
+position    VARCHAR2(10)    NOT NULL,
+eaddress    VARCHAR2(15)    NOT NULL,
+esalary        INTEGER            NOT NULL,
+ebdate        DATE            NOT NULL,
+egender        CHAR            NOT NULL,
+superssn    INTEGER,
+exhibitname    VARCHAR2(16)    NOT NULL,
+/*
+PK1: The primary key of zoo employee is empssn.
+*/
+CONSTRAINT PK1 PRIMARY KEY (empssn),
 /*
 ZC1: The position is one of: Supervisor, Cashier, Barista, Cook, 
 Janitor, Caretaker, or Vet.
 */
 CONSTRAINT ZC1 CHECK (position IN ('Supervisor', 'Cashier', 'Barista', 
-					'Cook', 'Janitor', 'Caretaker', 'Vet')),
+                    'Cook', 'Janitor', 'Caretaker', 'Vet')),
 /*
 ZC2: The employee gender is one of: M or F.
 */
@@ -59,35 +66,35 @@ CONSTRAINT ZC3 CHECK (NOT (position = 'Supervisor' AND esalary < 40000))
 --
 CREATE TABLE exhibit
 (
-exhibitname	VARCHAR2(20)	PRIMARY KEY,	
-climate		VARCHAR2(20)	NOT NULL,
-managerssn	INTEGER,
+exhibitname    VARCHAR2(16)    PRIMARY KEY,    
+climate        VARCHAR2(9)    NOT NULL,
+managerssn    INTEGER,
 /*
 ZC4: The climate is one of: Temperate, Polar, Tropical, Arid, 
-or Mediterranean.
+or Coastal.
 */
 CONSTRAINT ZC4 CHECK (climate IN ('Temperate', 'Polar', 'Tropical', 
-					'Arid', 'Coastal'))
+                    'Arid', 'Coastal'))
 );
 --
 --
 CREATE TABLE shop
 (
-shopid		INTEGER			PRIMARY KEY,
-sname		VARCHAR2(30)	NOT NULL,
-exhibitname	VARCHAR2(20)	NOT NULL
+shopid        INTEGER            PRIMARY KEY,
+sname        VARCHAR2(30)    NOT NULL,
+exhibitname    VARCHAR2(16)    NOT NULL
 );
 --
 --
 CREATE TABLE animal
 (
-aid			INTEGER			PRIMARY KEY,
-species		VARCHAR2(30)	NOT NULL,
-age			INTEGER			NOT NULL,
-agender		CHAR			NOT NULL,
-empssn		INTEGER			NOT	NULL,
-tendtime	INTEGER			NOT NULL,
-exhibitname	VARCHAR2(20)	NOT NULL,
+aid            INTEGER            PRIMARY KEY,
+species        VARCHAR2(16)    NOT NULL,
+age            INTEGER            NOT NULL,
+agender        CHAR            NOT NULL,
+empssn        INTEGER            NOT    NULL,
+tendtime    INTEGER            NOT NULL,
+exhibitname    VARCHAR2(16)    NOT NULL,
 /*
 ZC5: The animal gender is one of: M or F.
 */
@@ -100,23 +107,23 @@ CONSTRAINT ZC6 CHECK (tendtime > 559 AND tendtime < 1900)
 --
 CREATE TABLE event
 (
-exhibitname	VARCHAR2(20),
-evdate		DATE,
-type		VARCHAR2(20)	NOT NULL,
-PRIMARY KEY(exhibitname, evdate)	
+exhibitname    VARCHAR2(16),
+evdate        DATE,
+type        VARCHAR2(20)    NOT NULL,
+PRIMARY KEY(exhibitname, evdate)    
 );
 --
 CREATE TABLE shopproducts
 (
-shopid		INTEGER,
-productname	VARCHAR2(35),
-PRIMARY KEY(shopid, productname)		
+shopid        INTEGER,
+productname    VARCHAR2(35),
+PRIMARY KEY(shopid, productname)        
 );
 --
 CREATE TABLE worksat
 (
-empssn		INTEGER,
-shopid		INTEGER,
+empssn        INTEGER,
+shopid        INTEGER,
 PRIMARY KEY(empssn, shopid)
 );
 --
@@ -616,20 +623,24 @@ where E.egender = 'M' and
 -- INSERT/DELETE/UPDATE STATEMENTS
 -- -----------------------------------------------------
 --
+-- Testing K1
+insert into exhibit values ('Petting Zoo','Temperate', 114327791);
 -- Testing ZC1 violate
-insert into zooemployees values (144423650, 'Andy', 'Carl', 'Person', '4960 Farland Street', 8000, '1970-04-15', 'M', NULL, 'Bugs');
+insert into zooemployees values (144423650, 'Andy', 'Carl', 'Person', '496 Land St', 8000, '1970-04-15', 'M', NULL, 'Bugs');
 -- Testing ZC2 violate
-insert into zooemployees values (133333651, 'Ju-lee', 'Carl', 'Supervisor', '4960 Farland Street', 80000, '1970-04-15', 'R', NULL, 'Bugs');
+insert into zooemployees values (133333651, 'Ju-lee', 'Carl', 'Supervisor', '460 Land St', 80000, '1970-04-15', 'R', NULL, 'Bugs');
 -- Testing ZC3 violate
-insert into zooemployees values (130423650, 'Beth', 'Carl', 'Supervisor', '4960 Farland Street', 8000, '1970-04-15', 'M', NULL, 'Bugs');
+insert into zooemployees values (130423650, 'Beth', 'Carl', 'Supervisor', '960 Land St', 80000, '1970-04-15', 'M', NULL, 'Bugs');
 -- Testing ZC4 violate
 insert into exhibit values ('Petting Zoo', 'Cold', 198204924);
 -- Testing ZC5 violate
 insert into animal values (100, 'Tiger', 5, 'R', 622347022, 1030, 'Tiger Realm');
 -- Testing ZC6 violate
-insert into animal values (479, 'Gorilla', 5, 'F', 103010924, 100, 'Monkeys');
+insert into animal values (479, 'Gorilla', 2, 'F', 103010924, 100, 'Monkeys');
 -- Testing FK1 
 delete from zooemployees WHERE empssn = 405249752;
+-- Testing FK1.1 should violate the parent key constraint
+insert into zooemployees values (144423650, 'Andy', 'Carl', 'Barista', '496 Land St', 8000, '1970-04-15', 'M', 000000000, 'Bugs');
 -- Testing FK2 
 delete from zooemployees WHERE exhibitname = 'Shores Aquarium';
 -- Testing FK3 
@@ -641,7 +652,7 @@ delete from animal where empssn = 595061909;
 -- testing FK6 
 delete from animal where exhibitname = 'Pelican Pier';
 -- Testing FK7 
-delete from event where exhibitname = 'Petting Zoo';
+delete from event where exhibitname = 'Forest Realm';
 -- Testing FK8 
 delete from shopproducts where shopid = 12;
 -- Testing FK9 
