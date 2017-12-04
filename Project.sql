@@ -652,7 +652,7 @@ delete from animal where empssn = 595061909;
 -- testing FK6 
 delete from animal where exhibitname = 'Pelican Pier';
 -- Testing FK7 
-delete from event where exhibitname = 'Forest Real';
+delete from event where exhibitname = 'Forest Realm';
 -- Testing FK8 
 delete from shopproducts where shopid = 12;
 -- Testing FK9 
