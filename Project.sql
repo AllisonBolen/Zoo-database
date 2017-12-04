@@ -249,6 +249,7 @@ SET FEEDBACK OFF
 alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD';
 --
 -- Supervisors
+
 insert into zooemployees values (130423454, 'Ronnie', 'Alvarado', 'Supervisor', '4960 Farland Street', 72000, '1970-04-15', 'M', NULL, 'Bugs');
 insert into zooemployees values (635052791, 'Patricia', 'Scott', 'Supervisor', '1743 Cinnamon Lane', 60000, '1971-09-27', 'F', 130423454, 'Tiger Realm');
 insert into zooemployees values (543145276, 'Brenda', 'Myers', 'Supervisor', '2338 Skinner Hollow Road', 61000, '1962-05-31', 'F', 130423454, 'Shores Aquarium');
@@ -409,6 +410,7 @@ insert into animal values (430, 'Maned Wolf', 3, 'F', 644284210, 1200, 'South Am
 insert into animal values (431, 'Maned Wolf', 3, 'M', 644284210, 1230, 'South America');
 insert into animal values (440, 'Tropical Frog', 1, 'M', 421562138, 900, 'Frogs');
 insert into animal values (441, 'Tropical Frog', 1, 'M', 421562138, 930, 'Frogs');
+
 insert into animal values (450, 'Red Panda', 4, 'M', 265036954, 900, 'Forest Realm');
 insert into animal values (461, 'Chimpanzee', 5, 'M', 103010924, 930, 'Monkeys');
 insert into animal values (462, 'Chimpanzee', 4, 'F', 103010924, 1000, 'Monkeys');
