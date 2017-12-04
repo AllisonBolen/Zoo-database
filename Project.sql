@@ -5,7 +5,7 @@ SET ECHO ON
 --
 -- Authors:
 --
--- Allison Bolen2
+-- Allison Bolen
 -- Andrew Olesak
 -- Jake Walton
 -- Kasey Stowell
