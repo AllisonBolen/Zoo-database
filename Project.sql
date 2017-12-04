@@ -67,7 +67,7 @@ ZC4: The climate is one of: Temperate, Polar, Tropical, Arid,
 or Mediterranean.
 */
 CONSTRAINT ZC4 CHECK (climate IN ('Temperate', 'Polar', 'Tropical', 
-					'Arid', 'Mediterranean'))
+					'Arid', 'Coastal'))
 );
 --
 --
@@ -249,20 +249,19 @@ SET FEEDBACK OFF
 alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD';
 --
 -- Supervisors
-
-insert into zooemployees values (130423454, 'Ronnie', 'Alvarado', 'Supervisor', '4960 Farland Street', 72000, '1970-04-15', 'M', NULL, 'Bugs');
-insert into zooemployees values (635052791, 'Patricia', 'Scott', 'Supervisor', '1743 Cinnamon Lane', 60000, '1971-09-27', 'F', 130423454, 'Tiger Realm');
-insert into zooemployees values (543145276, 'Brenda', 'Myers', 'Supervisor', '2338 Skinner Hollow Road', 61000, '1962-05-31', 'F', 130423454, 'Shores Aquarium');
-insert into zooemployees values (187225055, 'Michael', 'Tejada', 'Supervisor', '531 Stoney Lonesome Road', 62000, '1975-09-01', 'M', 130423454, 'Pelican Pier');
-insert into zooemployees values (397981967, 'David', 'Gullett', 'Supervisor', '4796 Trouser Leg Road', 63000, '1979-01-29', 'M', 130423454, 'Tropic Treasures');
-insert into zooemployees values (405249752, 'Reginald', 'Phillips', 'Supervisor', '1984 Straford Park', 64000, '1985-08-22', 'M', 130423454, 'Wild Way Trail');
-insert into zooemployees values (198204924, 'Jack', 'Arnold', 'Supervisor', '2385 Pride Avenue', 65000, '1983-05-10', 'M', 130423454, 'Petting Zoo');
-insert into zooemployees values (306369902, 'Robert', 'Bradley', 'Supervisor', '1524 Neville Street', 66000, '1974-01-24', 'M', 130423454, 'Africa');
-insert into zooemployees values (594494079, 'Sheila', 'Lane', 'Supervisor', '4387 Badger Pond Lane', 67000, '1975-11-13', 'F', 130423454, 'North America');
-insert into zooemployees values (660054663, 'Jennifer', 'Atencio', 'Supervisor', '4035 Wood Street', 68000, '1989-12-05', 'F', 130423454, 'South America');
-insert into zooemployees values (170725571, 'Allie', 'Owens', 'Supervisor', '3475 Lost Creek Road', 69000, '1985-12-14', 'F', 130423454, 'Frogs');
+insert into zooemployees values (130423454, 'Ronnie', 'Alvarado', 'Supervisor', '496 Farland St', 72000, '1970-04-15', 'M', NULL, 'Bugs');
+insert into zooemployees values (635052791, 'Patricia', 'Scott', 'Supervisor', '174 Cinn Ln', 60000, '1971-09-27', 'F', 130423454, 'Tiger Realm');
+insert into zooemployees values (543145276, 'Brenda', 'Myers', 'Supervisor', '233 Hollow Rd', 61000, '1962-05-31', 'F', 130423454, 'Shores Aquarium');
+insert into zooemployees values (187225055, 'Michael', 'Tejada', 'Supervisor', '531 Lone Rd', 62000, '1975-09-01', 'M', 130423454, 'Pelican Pier');
+insert into zooemployees values (397981967, 'David', 'Gullett', 'Supervisor', '479 Leg Road', 63000, '1979-01-29', 'M', 130423454, 'Tropic Treasures');
+insert into zooemployees values (405249752, 'Reginald', 'Phillips', 'Supervisor', '194 Park Ln', 64000, '1985-08-22', 'M', 130423454, 'Wild Way Trail');
+insert into zooemployees values (198204924, 'Jack', 'Arnold', 'Supervisor', '238 Pride Ave', 65000, '1983-05-10', 'M', 130423454, 'Petting Zoo');
+insert into zooemployees values (306369902, 'Robert', 'Bradley', 'Supervisor', '154 Neville St', 66000, '1974-01-24', 'M', 130423454, 'Africa');
+insert into zooemployees values (594494079, 'Sheila', 'Lane', 'Supervisor', '438 Badger Ln', 67000, '1975-11-13', 'F', 130423454, 'North America');
+insert into zooemployees values (660054663, 'Jennifer', 'Atencio', 'Supervisor', '403 Wood St', 68000, '1989-12-05', 'F', 130423454, 'South America');
+insert into zooemployees values (170725571, 'Allie', 'Owens', 'Supervisor', '347 Creek Rd', 69000, '1985-12-14', 'F', 130423454, 'Frogs');
 insert into zooemployees values (114327791, 'Jennifer', 'Doe', 'Supervisor', '710 Huntz Lane', 70000, '1970-12-22', 'F', 130423454, 'Forest Realm');
-insert into zooemployees values (216407536, 'Georgia', 'Murray', 'Supervisor', '2236 Blue Spruce Lane', 71000, '1976-05-19', 'F', 130423454, 'Monkeys');
+insert into zooemployees values (216407536, 'Georgia', 'Murray', 'Supervisor', '223 Blue Ln', 71000, '1976-05-19', 'F', 130423454, 'Monkeys');
 --
 -- Exhibits
 insert into exhibit values ('Tiger Realm', 'Temperate', 635052791);
@@ -273,7 +272,7 @@ insert into exhibit values ('Wild Way Trail', 'Temperate', 405249752);
 insert into exhibit values ('Petting Zoo', 'Temperate', 198204924);
 insert into exhibit values ('Africa', 'Arid', 306369902);
 insert into exhibit values ('North America', 'Temperate', 594494079);
-insert into exhibit values ('South America', 'Mediterranean', 660054663);
+insert into exhibit values ('South America', 'Coastal', 660054663);
 insert into exhibit values ('Frogs', 'Tropical', 170725571);
 insert into exhibit values ('Forest Realm', 'Temperate', 114327791);
 insert into exhibit values ('Monkeys', 'Tropical', 216407536);
@@ -297,14 +296,14 @@ insert into zooemployees values (251828867, 'Benjamin', 'Luong', 'Cashier', '231
 insert into zooemployees values (178269601, 'Gina', 'Clear', 'Cashier', '301 Coal Street', 17400, '1990-08-27', 'F', 216407536, 'Monkeys');
 --
 --Zoo Baristas
-insert into zooemployees values (574127433, 'Monica', 'Kamp', 'Barista', '1709 Williams Mine Road', 20800, '1993-07-07', 'F', 187225055, 'Pelican Pier');
-insert into zooemployees values (255728306, 'Carl', 'Guerra', 'Barista', '4331 Hart Country Lane', 20900, '1988-10-16', 'M', 114327791, 'Forest Realm');
+insert into zooemployees values (574127433, 'Monica', 'Kamp', 'Barista', '170 Mine Rd', 20800, '1993-07-07', 'F', 187225055, 'Pelican Pier');
+insert into zooemployees values (255728306, 'Carl', 'Guerra', 'Barista', '433 Hart Ln', 20900, '1988-10-16', 'M', 114327791, 'Forest Realm');
 --
 -- Zoo Cooks
-insert into zooemployees values (427481397, 'Tania', 'Ramirez', 'Cook', '2043 Kelley Road', 22800, '1993-07-07', 'F', 397981967, 'Tropic Treasures');
-insert into zooemployees values (416860165, 'Terrence', 'Harrison', 'Cook', '35 Turkey Pen Lane', 22900, '1981-12-14', 'M', 397981967, 'Tropic Treasures');
-insert into zooemployees values (378213720, 'Avery', 'Foster', 'Cook', '691 Tennessee Avenue', 23000, '1994-10-18', 'M', 660054663, 'South America');
-insert into zooemployees values (256728014, 'Stephanie', 'Grant', 'Cook', '1513 Junior Avenue', 23100, '1991-10-21', 'F', 660054663, 'South America');
+insert into zooemployees values (427481397, 'Tania', 'Ramirez', 'Cook', '204 Kelley Rd', 22800, '1993-07-07', 'F', 397981967, 'Tropic Treasures');
+insert into zooemployees values (416860165, 'Terrence', 'Harrison', 'Cook', '35 Pen Ln', 22900, '1981-12-14', 'M', 397981967, 'Tropic Treasures');
+insert into zooemployees values (378213720, 'Avery', 'Foster', 'Cook', '691 Ten Ave', 23000, '1994-10-18', 'M', 660054663, 'South America');
+insert into zooemployees values (256728014, 'Stephanie', 'Grant', 'Cook', '151 Junior Ave', 23100, '1991-10-21', 'F', 660054663, 'South America');
 --
 -- Caretakers
 insert into zooemployees values (622347022, 'Annie', 'Allen', 'Caretaker', '797 Heritage Road', 35000, '1986-11-05', 'F', 635052791, 'Tiger Realm');
@@ -321,18 +320,18 @@ insert into zooemployees values (265036954, 'Kathy', 'Stewart', 'Caretaker', '40
 insert into zooemployees values (103010924, 'Marjorie', 'Castaneda', 'Caretaker', '1782 Anmoore Road', 36100, '1985-07-22', 'F', 216407536, 'Monkeys');
 --
 -- Vets
-insert into zooemployees values (571707179, 'Peggy', 'Baker', 'Vet', '1696 Black Oak Hollow Road', 50000, '1973-10-28', 'F', 635052791, 'Tiger Realm');
-insert into zooemployees values (166701386, 'Silas', 'Foulk', 'Vet', '4373 Saint James Drive', 51000, '1976-04-22', 'M', 543145276, 'Shores Aquarium');
-insert into zooemployees values (460085712, 'Doris', 'Patterson', 'Vet', '697 South Street', 52000, '1979-07-13', 'F', 187225055, 'Pelican Pier');
-insert into zooemployees values (479360155, 'Steven', 'Davis', 'Vet', '4355 Woodland Drive', 53000, '1983-03-06', 'M', 397981967, 'Tropic Treasures');
-insert into zooemployees values (542100923, 'Veronica', 'Morales', 'Vet', '1655 Heron Way', 54000, '1984-08-17', 'F', 405249752, 'Wild Way Trail');
-insert into zooemployees values (457903419, 'Connie', 'Landis', 'Vet', '3637 Colonial Drive', 55000, '1971-05-29', 'F', 198204924, 'Petting Zoo');
-insert into zooemployees values (265755073, 'John', 'Joyner', 'Vet', '804 Woodside Circle', 56000, '1982-04-25', 'M', 306369902, 'Africa');
-insert into zooemployees values (241380147, 'Michael', 'Rodriguez', 'Vet', '737 Keyser Ridge Road', 57000, '1975-11-13', 'M', 594494079, 'North America');
-insert into zooemployees values (765189816, 'William', 'Richie', 'Vet', '3888 Crowfield Road', 58000, '1974-10-05', 'M', 660054663, 'South America');
-insert into zooemployees values (681108756, 'Jessica', 'Gonzalez', 'Vet', '988 Concord Street', 59000, '1991-07-11', 'F', 170725571, 'Frogs');
-insert into zooemployees values (126122218, 'Angela', 'Rice', 'Vet', '4760 Valley View Drive', 60000, '1987-12-11', 'F', 114327791, 'Forest Realm');
-insert into zooemployees values (168542187, 'Nathan', 'Jones', 'Vet', '2631 Browning Lane', 61000, '1980-12-29', 'M', 216407536, 'Monkeys');
+insert into zooemployees values (571707179, 'Peggy', 'Baker', 'Vet', '169 Oak Rd', 50000, '1973-10-28', 'F', 635052791, 'Tiger Realm');
+insert into zooemployees values (166701386, 'Silas', 'Foulk', 'Vet', '437 James Dr', 51000, '1976-04-22', 'M', 543145276, 'Shores Aquarium');
+insert into zooemployees values (460085712, 'Doris', 'Patterson', 'Vet', '697 South St', 52000, '1979-07-13', 'F', 187225055, 'Pelican Pier');
+insert into zooemployees values (479360155, 'Steven', 'Davis', 'Vet', '435 Woodland Dr', 53000, '1983-03-06', 'M', 397981967, 'Tropic Treasures');
+insert into zooemployees values (542100923, 'Veronica', 'Morales', 'Vet', '165 Heron Way', 54000, '1984-08-17', 'F', 405249752, 'Wild Way Trail');
+insert into zooemployees values (457903419, 'Connie', 'Landis', 'Vet', '363 Course Dr', 55000, '1971-05-29', 'F', 198204924, 'Petting Zoo');
+insert into zooemployees values (265755073, 'John', 'Joyner', 'Vet', '804 Wood St', 56000, '1982-04-25', 'M', 306369902, 'Africa');
+insert into zooemployees values (241380147, 'Michael', 'Rodriguez', 'Vet', '737 Ridge Rd', 57000, '1975-11-13', 'M', 594494079, 'North America');
+insert into zooemployees values (765189816, 'William', 'Richie', 'Vet', '388 Crow Rd', 58000, '1974-10-05', 'M', 660054663, 'South America');
+insert into zooemployees values (681108756, 'Jessica', 'Gonzalez', 'Vet', '988 Concord St', 59000, '1991-07-11', 'F', 170725571, 'Frogs');
+insert into zooemployees values (126122218, 'Angela', 'Rice', 'Vet', '476 Valley Dr', 60000, '1987-12-11', 'F', 114327791, 'Forest Realm');
+insert into zooemployees values (168542187, 'Nathan', 'Jones', 'Vet', '263 Brown Ln', 61000, '1980-12-29', 'M', 216407536, 'Monkeys');
 --
 -- Shops
 insert into shop values (10, 'Coffee Station', 'Pelican Pier');
